@@ -35,6 +35,23 @@ The above is the file structure.
 
 Read more about [Julia][JuliaDoc], [Julia Plot][JuliaPlot] and [Matlab][MatlabDoc].
 
+## PolyHarmonicTrigTransforms
+
+```
+include(".PolyHarmonicTrigTransforms.jl")
+using .PolyHarmonicTrigTransforms
+
+julia> dst
+dst (generic function with 2 methods)
+
+julia> llst
+llst (generic function with 2 methods)
+
+julia> solvelaplace
+solvelaplace (generic function with 1 method)
+```
+
+
 ## LLST
 
 This Julia project focuses on LST (Local Sine Transformation) from [Professor Saito's paper][paper] 

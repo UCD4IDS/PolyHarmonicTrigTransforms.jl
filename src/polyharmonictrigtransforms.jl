@@ -1,16 +1,10 @@
-__precompile__()
-
 module PolyHarmonicTrigTransforms
 
     include("dst.jl")
     include("llst.jl")
     include("solvelaplace.jl")
+ 
+    using .DST, .LLST, .SOLVELAPLACE
 
-    using .DST
-    using .LLST
-    using .SOLVELAPLACE
-
-    export PolyHarmonicTrigTransforms
-
+    export dst, llst, solvelaplace
 end
-
