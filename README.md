@@ -22,13 +22,10 @@ This project is running in [Julia version 1.85][JuliaVersion] and fully tested i
 
 ```
 /
-  /matlab                       matlab files
-  /katsu                        Professor Yamatani's version
+  /data:                      image of barbara converted to data
   /polyharmonictrigtransforms:  package toml
-  /public:                      etc
   /src:                         julia source files
   /tests:                       julia test files
-    /data:                      image of barbara converted to data
 ```
 
 The above is the file structure. 
