@@ -32,9 +32,19 @@
 module DST
     using AbstractFFTs, FFTW
     
-    export dst
+    export dst, dst_old
 
-    function dst(a::AbstractArray, n=nothing)
+    function dst(x::AbstractArray, dims=1)
+        N = size(x, dims)
+        return FFTW.r2r(x, FFTW.RODFT00, dims)
+    end
+
+    function dst(x::AbstractArray, n=nothing, dims=1)
+        
+        return FFTW.r2r(x, FFTW.RODFT00, dims)
+    end
+
+    function dst_old(a::AbstractArray, n=nothing)
         if minimum(size(a)) == 1
             if size(a, 2) > 1
                 do_trans = 1
@@ -63,6 +73,7 @@ module DST
         y[n+3:2*(n+1), :] = -reverse(aa, dims=1)
         yy = fft(y, (1,))
         b = yy[2:n+1, :] / (-2 * sqrt(-1 + 0im))
+        
 
         if isreal(a)
             b = real(b)

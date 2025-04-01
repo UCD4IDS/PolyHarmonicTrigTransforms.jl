@@ -21,11 +21,13 @@
 #	                    Coded by Naoki Saito
 #
 
-module LLST2D
-    include("llst.jl")
+module LLSTAPPROX2
+    using LinearAlgebra
+
+    include("llst2.jl")
     include("illst.jl")
     include("util.jl")
-    using .LLST
+    using .LLST2
     using .ILLST
     using .UTIL
 
@@ -45,7 +47,7 @@ module LLST2D
         #levlist=Float64.(levlist);
 
         # Do the transform first.
-        coef = llst(data, levlist)
+        coef = llst2(data, levlist)
         (M, N) = size(coef) # just in case, recomputes M, N.
 
         # Split the coefficients into 'in', 'bo', 'co'.
@@ -86,7 +88,6 @@ module LLST2D
             end
         else
             Threads.@threads for k = 1:klen
-                @info "k: " k Dates.Time(Dates.now())
                 tmp = copy(inbo)
                 tmpInd = ind[1:end-krange[k]]
                 tmp[tmpInd] .= 0

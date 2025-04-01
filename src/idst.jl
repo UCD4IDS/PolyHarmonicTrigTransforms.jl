@@ -27,8 +27,16 @@ module IDST
     include("dst.jl")
     using .DST
 
-    export idst
-    function idst(y::AbstractArray, n=nothing)
+    export idst, idst_old
+    function idst(y::AbstractArray, dims=1)
+        
+        N = size(y, dims)
+        x = dst(y / (2*(N+1)), dims)
+        #@info "idst" x
+        return x
+    end
+
+    function idst_old(y::AbstractArray, n=nothing, dims=1)
         if n === nothing
             n = size(y, 1)
             if n == 1
@@ -36,7 +44,7 @@ module IDST
             end
         end
 
-        x = dst(y, n)
+        x = dst_old(y, n)
         x = x .* 2 / (n + 1)
         #@info "idst" x
         return x
