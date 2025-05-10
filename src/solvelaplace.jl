@@ -84,9 +84,9 @@ module SOLVELAPLACE
 
         # Now for the actual "solution" of the poisson equation
         db1 = dst(b1)
-        db2 = dst(b2)
+        db2 = dst(b2, 2)
         db3 = dst(b3)
-        db4 = dst(b4)
+        db4 = dst(b4, 2)
 
         #@info "dst" db1 db2 db3 db4
 

@@ -36,12 +36,14 @@ module DST
 
     function dst(x::AbstractArray, dims=1)
         N = size(x, dims)
-        return FFTW.r2r(x, FFTW.RODFT00, dims)
+        return FFTW.r2r(x, FFTW.RODFT00, dims) / 2
     end
 
-    function dst(x::AbstractArray, n=nothing, dims=1)
-        
-        return FFTW.r2r(x, FFTW.RODFT00, dims)
+    function dst_u(x::AbstractArray, dims=1)
+        N = size(x, dims)
+        new_x = FFTW.r2r(x, FFTW.RODFT00, dims)
+
+        return new_x / (sqrt(2*N)) #unitory value
     end
 
     function dst_old(a::AbstractArray, n=nothing)

@@ -32,8 +32,9 @@ module IDST
         
         N = size(y, dims)
         x = dst(y / (2*(N+1)), dims)
+        #x = dst(y * 2/ (N+1), dims)
         #@info "idst" x
-        return x
+        return x * 4
     end
 
     function idst_old(y::AbstractArray, n=nothing, dims=1)
