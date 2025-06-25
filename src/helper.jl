@@ -20,16 +20,31 @@
 module HELPER
   
   using Plots
+  using FileIO
+  using Images
   using LinearAlgebra
 
   export drawpartition2d2, l2norm
 
-  function drawpartition2d2(signal::AbstractVecOrMat, liste::AbstractArray, width=0.8)
+  function drawpartition2d2(signal::AbstractMatrix, liste::AbstractMatrix; width=nothing, image=nothing)
     (m, n) = size(signal)
-
-    p = plot([1, n, n, 1, 1], [1, 1, m, m, 1], lineWidth=width, aspect_ratio=:equal, linecolor=:red, legend=false)
+    p = plot()
+    if(isnothing(width))
+      width = 0.8
+    end
+    if(!isnothing(image))
+      if(isfile(image)) 
+        img = FileIO.load(image)
+        img_res = imresize(img, (n, m));
+        plot!(p, img_res)
+      else
+        print("file not found: ", image)
+      end
+    end
+    plot!(p, [1, n, n, 1, 1], [1, 1, m, m, 1], lineWidth=width, aspect_ratio=:equal, linecolor=:red, legend=false)
 
     recurspartition(p, 1, 1, m - 1, n - 1, liste, 1, 0, width)
+
     return p
   end
 
@@ -44,8 +59,8 @@ module HELPER
       return newpos;
     end
     
-    plot!(p, [pn + n / 2, pn + n / 2], [pm, pm + m], lineWidth=width, linecolor=:red, legend=false)
-    plot!(p, [pn, pn + n], [pm + m / 2, pm + m / 2], lineWidth=width, linecolor=:red, legend=false)
+    plot!(p, [pn + n / 2, pn + n / 2], [pm, pm + m], linecolor=:red)
+    plot!(p, [pn, pn + n], [pm + m / 2, pm + m / 2], linecolor=:red)
 
     
     newpos = recurspartition(p, pm, pn, m / 2, n / 2, liste, pos, level + 1, width)
