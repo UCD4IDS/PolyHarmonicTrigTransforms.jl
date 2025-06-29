@@ -152,7 +152,24 @@ Gaussian = GaussianFromImage(image_path)
 img = load(image_path)
 width, height = size(img)
 ```
+## Helper
 
+The function `drawpartition2d2` is used to draw the boundaries. It takes 5 parameters: `signal::AbstractMatrix, liste::AbstractMatrix; width=nothing, image=nothing,  fit=false`.
+Required:
+- `signal` is the data matrix
+- `liste` is the level list
+Optional:
+- `width` is the width of the plot line, defaults to `0.8`
+- `image` is the path of the background image
+- `fit` is the `boolean` to fit the image to the plot 
+
+```
+n = 5
+x = LinRange(-1, 1, n)
+y = LinRange(-1, 1, n)
+Gaussian = zeros((length(x), length(y)))
+drawpartition2d2(Gaussian, [1 1 1], image="test.jpg", fit=true)
+```
 
 ## Troubleshooting
 
