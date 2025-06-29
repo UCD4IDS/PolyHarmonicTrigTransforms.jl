@@ -26,7 +26,7 @@ module HELPER
 
   export drawpartition2d2, l2norm
 
-  function drawpartition2d2(signal::AbstractMatrix, liste::AbstractMatrix; width=nothing, image=nothing)
+  function drawpartition2d2(signal::AbstractMatrix, liste::AbstractMatrix; width=nothing, image=nothing,  fit=false)
     (m, n) = size(signal)
     p = plot()
     if(isnothing(width))
@@ -35,8 +35,10 @@ module HELPER
     if(!isnothing(image))
       if(isfile(image)) 
         img = FileIO.load(image)
-        img_res = imresize(img, (n, m));
-        plot!(p, img_res)
+        if(fit)
+          img = imresize(img, (n, m));
+        end
+        plot!(p, img)
       else
         print("file not found: ", image)
       end
