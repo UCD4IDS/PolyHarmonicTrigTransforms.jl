@@ -66,8 +66,8 @@ module HELPER
 
     
     newpos = recurspartition(p, pm, pn, m / 2, n / 2, liste, pos, level + 1, width)
-    newpos = recurspartition(p, pm + m / 2, pn, m / 2, n / 2, liste, newpos, level + 1, width)
     newpos = recurspartition(p, pm, pn + n / 2, m / 2, n / 2, liste, newpos, level + 1, width)
+    newpos = recurspartition(p, pm + m / 2, pn, m / 2, n / 2, liste, newpos, level + 1, width)
     newpos = recurspartition(p, pm + m / 2, pn + n / 2, m / 2, n / 2, liste, newpos, level + 1, width)
   end
 
