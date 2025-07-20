@@ -17,8 +17,6 @@ module QTLLST2DL1
 
     function recurs_testdst2d(signal::AbstractVecOrMat, level::Int, lmax::Int)
 
-        println(size(signal))  # for fixing: print signal size
-
         (m, n) = size(signal)
 
         n1 = Int((n - 1) / 2)
