@@ -46,7 +46,7 @@ module PolyHarmonicTrigTransforms
         phlct2d,
         qtllst2dl1,
         #helper.jl
-        drawpartition2d2, l2norm
+        drawpartition2d2, l2norm, is_level_list_valid, is_valid_subband
 end
 
 #using .PolyHarmonicTrigTransforms

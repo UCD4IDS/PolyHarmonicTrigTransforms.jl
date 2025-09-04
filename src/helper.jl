@@ -24,10 +24,16 @@ module HELPER
   using Images
   using LinearAlgebra
 
-  export drawpartition2d2, l2norm
+  export drawpartition2d2, l2norm, is_level_list_valid, is_valid_subband
 
   function drawpartition2d2(signal::AbstractMatrix, liste::AbstractMatrix; width=nothing, image=nothing,  fit=false)
     (m, n) = size(signal)
+
+    is_list_valid = is_valid_subband(liste)
+    if(!is_list_valid)
+      throw(is_list_valid)
+    end
+
     p = plot()
     if(isnothing(width))
       width = 0.8
@@ -74,4 +80,75 @@ module HELPER
   function l2norm(original::AbstractVecOrMat, mutated::AbstractVecOrMat) 
     return norm(mutated .- original)/ norm(original)
   end
+
+  function is_level_list_valid(signal::AbstractMatrix, list::AbstractMatrix)
+    m,n = size(signal)
+
+    if(!iseven(m) || !iseven(n))
+      return false
+    end
+    return is_valid_subband(list)
+
+  end
+
+  """
+  Validate a wavelet-packet levels list encoded as depths of *leaves* in
+  depth-first encounter order (UL, UR, LL, LR). Accepts a row vector or vector.
+
+  Rules:
+  - The list contains leaf levels only.
+  - If a leaf appears deeper than the current expected level, that implies
+    recursive subdivision; each subdivision creates 4 children, of which we
+    visit the first now and push the other 3 siblings to visit later.
+  - The traversal must exactly consume all tokens with no leftovers.
+
+  Returns (Bool, String).
+  """
+  function is_valid_subband(levels::AbstractVecOrMat{<:Integer})
+    a = Int.(vec(levels))
+    if isempty(a)
+        print("empty input")
+        return false
+    end
+
+    # Choose a root not deeper than any leaf; picking (min-1) is safe and generic.
+    root_level = minimum(a) - 1
+
+    stack = Int[root_level]   # expected subtree roots to visit next (LIFO for DFS)
+    i = 1                     # index into a
+
+    while !isempty(stack)
+        if i > length(a)
+            print("ran out of tokens with $(length(stack)) pending regions")
+            return false
+        end
+
+        expected = pop!(stack)    # level of the subtree root we are about to visit
+        d = a[i]                  # depth of the next leaf token
+
+        if d < expected
+            print("token at index $i has level $d < expected $expected")
+            return false
+        end
+
+        # For each refinement from expected -> d, push the other 3 children
+        # (we descend into the first child immediately; siblings are visited later).
+        for L in expected:(d-1)
+            push!(stack, L+1); push!(stack, L+1); push!(stack, L+1)
+        end
+
+        # Consume this leaf
+        i += 1
+    end
+
+    if i <= length(a)
+        print("extra tokens starting at index $i")
+        return false
+    end
+
+    return true
+  end
+
+
+
 end
