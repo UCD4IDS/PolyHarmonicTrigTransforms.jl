@@ -21,4 +21,7 @@ has_phlct_restore = isdefined(PolyHarmonicTrigTransforms, :phlct_restore);
 has_phlct2d = isdefined(PolyHarmonicTrigTransforms, :phlct2d);
 @test has_phlct2d = true;
 
+has_laplace = isdefined(PolyHarmonicTrigTransforms, :laplace);
+@test has_laplace::Bool = true;
+
 print("tests passed");
