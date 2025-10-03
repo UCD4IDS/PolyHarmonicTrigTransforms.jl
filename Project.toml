@@ -1,4 +1,5 @@
 name = "polyharmonictrigtransforms"
+version = "1.0.0"
 
 [deps]
 AbstractFFTs = "621f4979-c628-5d54-868e-fcf4e3e8185c"
