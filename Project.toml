@@ -1,5 +1,7 @@
 name = "polyharmonictrigtransforms"
+uuid = "c853eca7-4467-4dac-871a-88cef1644acc"
 version = "1.0.0"
+authors = []
 
 [deps]
 AbstractFFTs = "621f4979-c628-5d54-868e-fcf4e3e8185c"
