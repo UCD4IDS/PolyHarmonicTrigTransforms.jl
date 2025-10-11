@@ -1,7 +1,7 @@
-name = "polyharmonictrigtransforms"
+name = "PolyHarmonicTrigTransforms"
 uuid = "c853eca7-4467-4dac-871a-88cef1644acc"
-version = "1.0.0"
 authors = []
+version = "1.0.0"
 
 [deps]
 AbstractFFTs = "621f4979-c628-5d54-868e-fcf4e3e8185c"
@@ -14,20 +14,19 @@ MAT = "23992714-dd62-5051-b70f-ba57cb901cac"
 Plots = "91a5bcdd-55d7-5caf-9e0b-520d859cae80"
 Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
 
-[compat]
-MAT = "0.10"
-AbstractFFTs = "1"
-FileIO = "1"
-ImageMagick = "1"
-ImageIO = "0.6"
-FFTW = "1"
-Images = "0.26"
-Plots = "1"
-
 [weakdeps]
-AbstractFFTs = "621f4979-c628-5d54-868e-fcf4e3e8185c"
 FFTW = "7a1cc6ca-52ef-59f5-83cd-3a7055c09341"
 Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
+
+[compat]
+AbstractFFTs = "1"
+FFTW = "1"
+FileIO = "1"
+ImageIO = "0.6"
+ImageMagick = "1"
+Images = "0.26"
+MAT = "0.10"
+Plots = "1"
 
 [targets]
 test = ["Test", "FFTW", "AbstractFFTs"]
