@@ -7,7 +7,7 @@ on:
     paths: # run CI/CD when the tests change, the dependencies change, or the version changes
       - test/*
       - Project.toml
-    tags: "*"
+    tags: ["*"]
   pull_request: # run when pull requests are made
     paths:
       - src/*
