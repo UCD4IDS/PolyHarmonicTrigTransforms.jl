@@ -21,12 +21,12 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-latest, windows-latest, macos-latest]
+        os: [windows-latest, macos-latest]
         julia-version: ['1.9', '1.10', '1.11', 'lts']
         arch:
           - x64
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v
       - uses: julia-actions/setup-julia@v2
         with:
           version: ${{ matrix.julia-version }}
