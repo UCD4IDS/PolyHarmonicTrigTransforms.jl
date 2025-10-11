@@ -1,6 +1,6 @@
 include("../src/PolyHarmonicTrigTransforms.jl")
 
-using .PolyHarmonicTrigTransforms
+using Test, .PolyHarmonicTrigTransforms
 
 #check for dst
 has_dst = isdefined(PolyHarmonicTrigTransforms, :dst);
