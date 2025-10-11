@@ -1,4 +1,5 @@
 # Generated using the wonderful PkgTemplates.jl and altered slightly
+
 name: CI
 on:
   workflow_dispatch: #get a button to trigger it by hand
@@ -6,7 +7,7 @@ on:
     paths: # run CI/CD when the tests change, the dependencies change, or the version changes
       - test/*
       - Project.toml
-    tags: "*"
+    tags: ["*"]
   pull_request: # run when pull requests are made
     paths:
       - src/*
@@ -15,25 +16,20 @@ on:
       - Project.toml
 jobs:
   test:
-    name: Julia ${{ matrix.version }} - ${{ matrix.os }} - ${{ matrix.arch }} - ${{ github.event_name }}
+    name: Julia ${{ matrix.julia-version }} - ${{ matrix.os }} - ${{ matrix.arch }} - ${{ github.event_name }}
     runs-on: ${{ matrix.os }}
     strategy:
       fail-fast: false
       matrix:
-        version:
-          - "1.11"
-          - "1.10"
-        os:
-          - ubuntu-latest
-          - macOS-latest
-          - windows-latest
+        os: [windows-latest, macos-latest]
+        julia-version: ['1.9', '1.10', 'lts']
         arch:
           - x64
     steps:
-      - uses: actions/checkout@v2
-      - uses: julia-actions/setup-julia@v1
+      - uses: actions/checkout@v4
+      - uses: julia-actions/setup-julia@v2
         with:
-          version: ${{ matrix.version }}
+          version: ${{ matrix.julia-version }}
           arch: ${{ matrix.arch }}
       - uses: actions/cache@v4
         env:
@@ -48,6 +44,8 @@ jobs:
             ${{ runner.os }}-test-
             ${{ runner.os }}-
       - uses: julia-actions/julia-buildpkg@v1
+      - name: Resolve/Update dependencies
+        run: julia -e 'using Pkg; Pkg.resolve()' # Or Pkg.update()
       - uses: julia-actions/julia-runtest@v1
         with:
           annotate: true

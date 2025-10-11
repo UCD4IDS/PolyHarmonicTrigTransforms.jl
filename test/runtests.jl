@@ -1,6 +1,6 @@
 include("../src/PolyHarmonicTrigTransforms.jl")
 
-using .PolyHarmonicTrigTransforms
+using Test, .PolyHarmonicTrigTransforms
 
 #check for dst
 has_dst = isdefined(PolyHarmonicTrigTransforms, :dst);
@@ -20,5 +20,8 @@ has_phlct_restore = isdefined(PolyHarmonicTrigTransforms, :phlct_restore);
 
 has_phlct2d = isdefined(PolyHarmonicTrigTransforms, :phlct2d);
 @test has_phlct2d = true;
+
+has_laplace = isdefined(PolyHarmonicTrigTransforms, :laplace);
+@test has_laplace::Bool = true;
 
 print("tests passed");
