@@ -24,8 +24,9 @@ jobs:
         version:
           - "1.9"
           - "1.10"
+          - "1.11"
         os:
-          - ubuntu-latest
+          #- ubuntu-latest
           - macOS-latest
           - windows-latest
         arch:
