@@ -1,4 +1,5 @@
 # Generated using the wonderful PkgTemplates.jl and altered slightly
+
 name: CI
 on:
   workflow_dispatch: #get a button to trigger it by hand
@@ -48,6 +49,8 @@ jobs:
             ${{ runner.os }}-test-
             ${{ runner.os }}-
       - uses: julia-actions/julia-buildpkg@v1
+      - name: Resolve/Update dependencies
+        run: julia -e 'using Pkg; Pkg.resolve()' # Or Pkg.update()
       - uses: julia-actions/julia-runtest@v1
         with:
           annotate: true
