@@ -30,6 +30,7 @@ ImageMagick = "1"
 Images = "0.26"
 MAT = "0.10"
 Plots = "1"
+Statistics = "1"
 
 [targets]
 test = ["Test", "FFTW", "AbstractFFTs"]
