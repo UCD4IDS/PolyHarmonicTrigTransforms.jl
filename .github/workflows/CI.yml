@@ -22,7 +22,7 @@ jobs:
       fail-fast: false
       matrix:
         os: [windows-latest, macos-latest]
-        julia-version: ['1.9', '1.10', 'lts']
+        julia-version: ['1.10', 'lts']
         arch:
           - x64
     steps:
