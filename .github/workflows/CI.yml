@@ -45,7 +45,7 @@ jobs:
             ${{ runner.os }}-
       - uses: julia-actions/julia-buildpkg@v1
       - name: Resolve/Update dependencies
-        run: julia -e 'using Pkg; Pkg.resolve()' # Or Pkg.update()
+        run: julia -e 'using Pkg; Pkg.update()' # Or Pkg.update()
       - uses: julia-actions/julia-runtest@v1
         with:
           annotate: true
