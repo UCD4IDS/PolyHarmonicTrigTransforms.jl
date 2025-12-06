@@ -34,3 +34,6 @@ Statistics = "1"
 
 [targets]
 test = ["Test", "FFTW", "AbstractFFTs"]
+
+[workspace]
+projects = ["test", "docs"]
