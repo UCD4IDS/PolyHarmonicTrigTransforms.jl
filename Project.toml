@@ -1,7 +1,7 @@
 name = "PolyHarmonicTrigTransforms"
 uuid = "c853eca7-4467-4dac-871a-88cef1644acc"
-authors = []
 version = "1.0.0"
+authors = []
 
 [deps]
 AbstractFFTs = "621f4979-c628-5d54-868e-fcf4e3e8185c"
@@ -28,7 +28,7 @@ FileIO = "1"
 ImageIO = "0.6"
 ImageMagick = "1"
 Images = "0.26"
-MAT = "0.10"
+MAT = "0.10, 0.11"
 Plots = "1"
 Statistics = "1"
 
