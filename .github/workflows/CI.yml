@@ -16,18 +16,15 @@ on:
       - Project.toml
 jobs:
   test:
-    name: Julia ${{ matrix.julia-version }} - ${{ matrix.os }} - ${{ matrix.arch }} - ${{ github.event_name }}
+    name: Julia ${{ matrix.julia-version }} - ${{ matrix.os }} - ${{ github.event_name }}
     runs-on: ${{ matrix.os }}
     strategy:
       fail-fast: false
       matrix:
         os: [windows-latest, macos-latest]
+        julia-arch: [x64, aarch64]
         julia-version: ['1.10','1.11','1.12', 'lts']
-        include:
-          - os: macos-latest
-            julia-arch: aarch64
-          - os: macOS-latest
-            julia-arch: x64
+
     steps:
       - uses: actions/checkout@v4
       - uses: julia-actions/setup-julia@v2
