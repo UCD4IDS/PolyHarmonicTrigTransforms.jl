@@ -1,9 +1,34 @@
 module PHLCT
 
-    using Statistics, FFTW
+    using Statistics
     export phlct_backward, phlct_forward, phlct_restore
+    export phlct_backward!, phlct_forward!
+
+    # Lazily ensure FFTW and fft/ifft bindings are available in this module
+    function _ensure_fft()
+        if !isdefined(@__MODULE__, :fft) || !isdefined(@__MODULE__, :FFTW)
+            Core.eval(Main, :(using FFTW))
+            Core.eval(@__MODULE__, :(const FFTW = Main.FFTW))
+            Core.eval(@__MODULE__, :(const fft = Main.FFTW.fft))
+            Core.eval(@__MODULE__, :(const ifft = Main.FFTW.ifft))
+        end
+        return nothing
+    end
     
+    """
+    phlct_backward(input, N)
+
+    Reconstruct an image from block-based PHLCT DCT coefficients.
+
+    Arguments
+    - `input`: m×n array of DCT coefficients (block-based, m and n multiples of `N`).
+    - `N`: block size (integer).
+
+    Returns
+    - reconstructed m×n image (real array).
+    """
     function phlct_backward(input::AbstractVecOrMat, N::Int)
+        _ensure_fft()
         # 
         # input
         # input : the m x n DCT coefficients of the residual image
@@ -35,7 +60,7 @@ module PHLCT
                 n0 = n1 - N + 1
                 s = input[m0:m1, n0:n1]
                 buf = [s z1 -s[:, N:-1:2]; z3; -s[N:-1:2,:] z2 s[N:-1:2, N:-1:2] ]
-                temp = ifft(t .* buf)
+                temp = FFTW.ifft(t .* buf)
                 u[m0:m1, n0:n1] = real.(temp[1:N, 1:N])
             end
         end
@@ -50,7 +75,32 @@ module PHLCT
         return out
     end
 
+    """
+    phlct_backward!(input, N)
+
+    In-place variant: overwrite `input` with the reconstructed image.
+    Computes `phlct_backward` and assigns the result into `input`.
+    """
+    function phlct_backward!(input::AbstractVecOrMat, N::Int)
+        res = phlct_backward(input, N)
+        input .= res
+        return input
+    end
+
+    """
+    phlct_forward(input, N)
+
+    Compute block-based PHLCT forward transform (returns DCT coefficients).
+
+    Arguments
+    - `input`: m×n image array (m and n must be multiples of `N`).
+    - `N`: block size.
+
+    Returns
+    - m×n array of DCT coefficients for the PHLCT representation.
+    """
     function phlct_forward(input::AbstractVecOrMat, N::Int)
+        _ensure_fft()
         # 
         # input
         # input : an m x n image data
@@ -98,13 +148,24 @@ module PHLCT
                 buf[1:N, N+1:end] = s[:, N:-1:1]
                 buf[N+1:end, 1:N] = s[N:-1:1, :]
                 buf[N+1:end, N+1:end] = s[N:-1:1, N:-1:1]
-                temp = fft(buf)
+                temp = FFTW.fft(buf)
                 # temp = fft(buf, [size(buf, 1), size(buf, 2)])
                 # display(temp)
                 out[m0:m1, n0:n1] .= real.(t .* temp[1:N, 1:N])
             end
         end
         return out
+    end
+
+    """
+    phlct_forward!(input, N)
+
+    In-place variant: overwrite `input` with its PHLCT coefficients.
+    """
+    function phlct_forward!(input::AbstractVecOrMat, N::Int)
+        res = phlct_forward(input, N)
+        input .= res
+        return input
     end
     
 
@@ -173,6 +234,7 @@ module PHLCT
     #    out:  DCT coefficints (except 0th) of PHLCT function.
     #
     function ndm( input, N )
+        _ensure_fft()
 
         km, kn = size(input)
 
@@ -227,6 +289,7 @@ module PHLCT
     #    out:  DCT coefficints of block based PHLCT function.
     #
     function dcndm(in, N)
+        _ensure_fft()
 
         # Initial parameter and array setup.
         m, n = size(in)
@@ -249,7 +312,7 @@ module PHLCT
 
         # DCT coefficints of PHLCT function (common part to all blocks).
         fm = sort(f,dims=1, rev=true)
-        fc = fft([f; fm])
+        fc = FFTW.fft([f; fm])
         l = (pi / (2 * N)) .* repeat(collect(1:N-1), 1, N)
         ff = real((cos.(l) - 1im .* sin.(l)) .* fc[2:N]) ./ (N^2 * sqrt(2.0))
         fb = ff

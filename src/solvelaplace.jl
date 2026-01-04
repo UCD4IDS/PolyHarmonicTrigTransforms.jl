@@ -33,6 +33,17 @@ module SOLVELAPLACE
     end
 
 
+    """
+    solvelaplace(image)
+
+    Solve the Laplace (Poisson) equation on the interior of `image` using DST/IDST.
+
+    Arguments
+    - `image`: m×n array with boundary values; the routine solves for the interior (returns array sized m×n with boundary preserved).
+
+    Returns
+    - array with the computed solution where interior values have been solved and boundaries are unchanged.
+    """
     function solvelaplace(image::AbstractVecOrMat)
         if (isempty(image) == true)
             error("IM has to be a 2D array")
@@ -127,7 +138,13 @@ module SOLVELAPLACE
         i1 = idst(hi1)
         i2 = idst(h2m' + h4m')'
         lapl = lapl + i1 + i2
-        #lapl = lapl + idst(h1m+h3m) + idst(h2m'+h4m')';
-        return lapl
+        # Place interior solution back into full image and preserve boundaries
+        out = zeros(m, n)
+        out[2:end-1, 2:end-1] .= lapl
+        out[1, :] .= image[1, :]
+        out[end, :] .= image[end, :]
+        out[:, 1] .= image[:, 1]
+        out[:, end] .= image[:, end]
+        return out
     end
 end;

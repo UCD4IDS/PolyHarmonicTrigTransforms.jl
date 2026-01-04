@@ -23,11 +23,31 @@
 # See also: DST
 # 
 module IDST
-
     include("dst.jl")
     using .DST
 
-    export idst, idst_old
+    # Lazily load FFTW when needed by IDST helpers.
+    function _ensure_fftw()
+        if !isdefined(@__MODULE__, :FFTW)
+            Core.eval(Main, :(using FFTW))
+            Core.eval(@__MODULE__, :(const FFTW = Main.FFTW))
+        end
+        return nothing
+    end
+
+    export idst, idst!, plan_idst, idst_old
+    """
+    idst(y; dims=1)
+
+    Inverse Type-I Discrete Sine Transform (IDST) of `y` along `dims`.
+
+    Arguments
+    - `y`: an `AbstractArray` of DST coefficients.
+    - `dims`: dimension to transform (default `1`).
+
+    Returns
+    - reconstructed array in the original domain.
+    """
     function idst(y::AbstractArray, dims=1)
         
         N = size(y, dims)
@@ -35,6 +55,36 @@ module IDST
         #x = dst(y * 2/ (N+1), dims)
         #@info "idst" x
         return x * 4
+    end
+
+    """
+    plan_idst(y; dims=1, flags=FFTW.MEASURE)
+
+    Create an FFTW r2r plan suitable for the IDST (uses the DST plan internally).
+    """
+    function plan_idst(y::AbstractArray; dims=1, flags=FFTW.MEASURE)
+        _ensure_fftw()
+        return FFTW.r2r_plan(y, FFTW.RODFT00, dims; flags=flags)
+    end
+
+    """
+    idst!(y; dims=1)
+
+    In-place inverse DST: overwrite `y` with the reconstructed data when
+    possible. Falls back to computing out-of-place and copying the result.
+    """
+    function idst!(y::AbstractArray; dims=1)
+        _ensure_fftw()
+        try
+            # In-place inverse DST: perform r2r in-place then scale by 1/(N+1)
+            FFTW.r2r!(y, FFTW.RODFT00, dims)
+            y ./= (size(y, dims) + 1)
+            return y
+        catch _
+            tmp = idst(y, dims)
+            y .= tmp
+            return y
+        end
     end
 
     function idst_old(y::AbstractArray, n=nothing, dims=1)

@@ -23,6 +23,7 @@ module LLST
     using .SOLVELAPLACE
     
     export llst2d, illst2d
+    export llst2d!, illst2d!
 
     # LLFT2D 2D Laplace Local Fourier Transform
     # 
@@ -51,9 +52,22 @@ module LLST
         inIX1 = 2:m-1
         inIX2 = 2:n-1
         rnorm = sqrt(4 / (m - 1) / (n - 1))
-        interior = data[inIX1, inIX2] .- solvelaplace(data)
+        sl = solvelaplace(data)
+        interior = data[inIX1, inIX2] .- sl[inIX1, inIX2]
         trans[inIX1, inIX2] = rnorm .* dst(dst(interior)')'
         return trans
+    end
+
+    """
+    llst2d!(data)
+
+    In-place variant of `llst2d` that overwrites `data` with the transform
+    result. Falls back to out-of-place computation and broadcasting assignment.
+    """
+    function llst2d!(data::AbstractVecOrMat)
+        res = llst2d(data)
+        data .= res
+        return data
     end
 
     # ILLFT2D 2D Inverse Laplace Local Fourier Transform
@@ -94,9 +108,22 @@ module LLST
 
         data = float(data)
         data[inIX1[:], inIX2[:]] = rnorm .* dst(dst(data[inIX1[:], inIX2[:]])')'
-        trans[inIX1[:], inIX2[:]] = data[inIX1[:], inIX2[:]] .+ solvelaplace(trans)
+        sl = solvelaplace(trans)
+        trans[inIX1[:], inIX2[:]] = data[inIX1[:], inIX2[:]] .+ sl[inIX1[:], inIX2[:]]
 
         return trans
+    end
+
+    """
+    illst2d!(data)
+
+    In-place variant of `illst2d` that overwrites `data` with the inverse
+    transform result.
+    """
+    function illst2d!(data::AbstractVecOrMat)
+        res = illst2d(data)
+        data .= res
+        return data
     end
 
 

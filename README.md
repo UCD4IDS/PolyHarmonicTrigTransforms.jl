@@ -121,6 +121,31 @@ iphlct = iphlct2d(phlct, n)
 
 Reference: [Professor Saito's paper][paper] page 30 Chapter 6.2.2.
 
+## Examples
+
+Basic DST/IDST round-trip:
+
+```julia
+using .PolyHarmonicTrigTransforms
+
+x = randn(8)
+y = dst(x)
+x_rec = idst(y)
+@assert maximum(abs.(x_rec - 4 .* x ./ 4)) < 1e-12 # numeric check
+```
+
+PHLCT forward/backward round-trip (block size `N`):
+
+```julia
+using .PolyHarmonicTrigTransforms
+
+n = 8
+img = randn(n, n)
+coeffs = phlct_forward(img, n)
+img_rec = phlct_backward(coeffs, n)
+@assert norm(img - img_rec) / norm(img) < 1e-12
+```
+
 #### Image Testing
 
 To test images, first take your chosen image and convert it into a square image (i.e. size n x n where n is the new size of the image after using tools to square it).
