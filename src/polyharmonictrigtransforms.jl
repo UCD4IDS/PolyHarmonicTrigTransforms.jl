@@ -1,7 +1,7 @@
 # Case-correct package entrypoint for case-sensitive filesystems (CI/macOS)
 # This simply includes the existing implementation file to maintain the
 # current layout while satisfying `Pkg` expectations for `src/ModuleName.jl`.
-include(joinpath(@__DIR__, "polyharmonictrigtransforms.jl"))
+include(joinpath(@__DIR__, "PolyHarmonicTrigTransforms.jl"))
 
 # Module entrypoint
 module PolyHarmonicTrigTransforms

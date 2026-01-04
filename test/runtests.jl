@@ -1,4 +1,4 @@
-include("../src/polyharmonictrigtransforms.jl")
+include("../src/PolyHarmonicTrigTransforms.jl")
 
 using Test, .PolyHarmonicTrigTransforms
 
