@@ -6,14 +6,14 @@ include(joinpath(@__DIR__, "PolyHarmonicTrigTransforms.jl"))
 # Module entrypoint
 module PolyHarmonicTrigTransforms
 
-# Include implementation files (relative to this file's directory)
-for fname in (
-    "dst.jl", "idst.jl", "llst.jl", "illst.jl", "llst2.jl",
-    "llstapprox2.jl", "solvelaplace.jl", "solvelaplace_old.jl",
-    "phlct.jl", "phlct2d.jl", "qtllst2dl1.jl", "helper.jl",
-)
-    include(joinpath(@__DIR__, fname))
-end
+"""
+PolyHarmonicTrigTransforms
+
+Provides polyharmonic and trigonometric transform routines:
+DST/IDST, LLST families, polyharmonic LCT, and Laplace solvers.
+
+See the `docs/` directory for usage examples and API reference.
+"""
 
 using .DST
 using .IDST
