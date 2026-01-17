@@ -12,6 +12,17 @@ module LLST2
     export llst2
     export llst2!
         
+    """
+    llst2(data, ll; inverse=false)
+
+    Perform the LLST block-based transform using level-list `ll` on `data`.
+
+    - `data`: input 2D array.
+    - `ll`: level-list describing the quadtree partition.
+    - `inverse`: when true performs the inverse transform.
+
+    Returns the transformed array.
+    """
     function llst2(data::AbstractVecOrMat, ll::AbstractArray, inverse::Bool=false)
         if (inverse != false)
             inverse = true

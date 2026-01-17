@@ -191,6 +191,13 @@ module PHLCT
     # Output
     #    out:  DCT coefficints which are restored by PHLCT
 
+    """
+    phlct_restore(in, qt)
+
+    Restore truncated DCT coefficients `in` using PHLCT and quantization table `qt`.
+
+    Returns the restored coefficient matrix.
+    """
     function phlct_restore(in::AbstractVecOrMat, qt::AbstractVecOrMat)
 
         # Set the quantization table for each blocks

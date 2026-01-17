@@ -40,6 +40,13 @@ module LLST
     #   transf - transformed image
     # 
     # See also: LLFT, ILLFT, SOLVELAPLACE.
+    """
+    llst2d(data)
+
+    Compute the 2D LLST (localized lattice-sine transform) decomposition of `data`.
+
+    Returns a level-list representation suitable for further processing.
+    """
     function llst2d(data::AbstractVecOrMat)
         (m, n) = size(data)
 
@@ -61,8 +68,7 @@ module LLST
     """
     llst2d!(data)
 
-    In-place variant of `llst2d` that overwrites `data` with the transform
-    result. Falls back to out-of-place computation and broadcasting assignment.
+    In-place variant of `llst2d` that writes the decomposition back into `data` when possible.
     """
     function llst2d!(data::AbstractVecOrMat)
         res = llst2d(data)
@@ -86,6 +92,11 @@ module LLST
     #   transf - transformed image
     # 
     # See also: LLFT, ILLFT, SOLVELAPLACE.
+    """
+    illst2d(data)
+
+    Inverse 2D LLST: reconstruct the data from a level-list decomposition.
+    """
     function illst2d(data::AbstractVecOrMat)
         (m, n) = size(data)
 
@@ -117,8 +128,7 @@ module LLST
     """
     illst2d!(data)
 
-    In-place variant of `illst2d` that overwrites `data` with the inverse
-    transform result.
+    In-place inverse LLST that attempts to reconstruct into `data` without allocation.
     """
     function illst2d!(data::AbstractVecOrMat)
         res = illst2d(data)

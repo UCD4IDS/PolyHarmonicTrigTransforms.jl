@@ -3,4 +3,4 @@ uuid = "00000000-0000-0000-0000-000000000001"
 authors = ["UCD4IDS"]
 
 [deps]
-Documenter = "e30172f5-a6a5-5a46-863b-6148b7a5e3f0"
+Documenter = "e30172f5-a6a5-5a46-863b-614d45cd2de4"

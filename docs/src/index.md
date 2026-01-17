@@ -4,7 +4,7 @@ Short overview: polyharmonic and trigonometric transform utilities for signal an
 
 ## Quick start
 
-```jldoctest
+```julia
 using PolyHarmonicTrigTransforms
 using Random
 

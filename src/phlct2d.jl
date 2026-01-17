@@ -22,7 +22,16 @@ module PHLCT2D
 
     export phlct2d
 
-    
+    """
+    phlct2d(F, N)
+
+    Compute the 2D PHLCT coefficients for block-DCT coefficient matrix `F`.
+
+    - `F`: m×n block-based DCT coefficient matrix (m,n multiples of `N`).
+    - `N`: block size.
+
+    Returns the PHLCT coefficients `V = F - U`.
+    """
     function phlct2d( F, N )
 
         # set eta...
