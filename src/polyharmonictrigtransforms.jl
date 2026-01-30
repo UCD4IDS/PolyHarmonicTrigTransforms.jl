@@ -1,4 +1,12 @@
 # Module entrypoint
+"""
+PolyHarmonicTrigTransforms
+
+Provides polyharmonic and trigonometric transform routines:
+DST/IDST, LLST families, polyharmonic LCT, and Laplace solvers.
+
+See the `docs/` directory for usage examples and API reference.
+"""
 module PolyHarmonicTrigTransforms
 
 # Include implementation files (relative to this file's directory)
@@ -9,15 +17,6 @@ for fname in (
 )
     include(joinpath(@__DIR__, fname))
 end
-
-"""
-PolyHarmonicTrigTransforms
-
-Provides polyharmonic and trigonometric transform routines:
-DST/IDST, LLST families, polyharmonic LCT, and Laplace solvers.
-
-See the `docs/` directory for usage examples and API reference.
-"""
 
 using .DST
 using .IDST
