@@ -17,7 +17,7 @@ jobs:
       - name: Install docs environment
         run: julia -e 'using Pkg; Pkg.activate("docs"); Pkg.instantiate()'
       - name: Build documentation
-        run: julia --project=docs docs/make.jl
+        run: julia --project=. docs/make.jl
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
