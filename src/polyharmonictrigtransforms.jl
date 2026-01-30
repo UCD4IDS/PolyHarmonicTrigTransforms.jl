@@ -1,3 +1,8 @@
+"""
+Package entry wrapper to satisfy Pkg's expected source filename.
+This file simply includes the actual implementation file `polyharmonictrigtransforms.jl`.
+"""
+include(joinpath(@__DIR__, "polyharmonictrigtransforms.jl"))
 # Module entrypoint
 """
 PolyHarmonicTrigTransforms
