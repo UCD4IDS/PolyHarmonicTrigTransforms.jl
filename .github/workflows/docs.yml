@@ -13,7 +13,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: julia-actions/setup-julia@v1
         with:
-          version: '1.10'
+          version: '1.12'
       - name: Install project environment
         run: |
           julia -e 'using Pkg; Pkg.activate(); Pkg.instantiate(); Pkg.precompile()'
