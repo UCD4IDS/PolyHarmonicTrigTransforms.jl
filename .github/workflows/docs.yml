@@ -14,8 +14,8 @@ jobs:
       - uses: julia-actions/setup-julia@v1
         with:
           version: '1.10'
-      - name: Install docs environment
-        run: julia -e 'using Pkg; Pkg.activate("docs"); Pkg.instantiate()'
+      - name: Install project environment
+        run: julia -e 'using Pkg; Pkg.instantiate()'
       - name: Build documentation
         run: julia --project=. docs/make.jl
       - name: Deploy to GitHub Pages
