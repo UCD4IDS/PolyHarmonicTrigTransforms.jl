@@ -15,7 +15,8 @@ jobs:
         with:
           version: '1.12'
       - name: Install project environment
-        run: julia --project=docs -e 'using Pkg; Pkg.develop(path=".."); Pkg.instantiate(); Pkg.precompile()'
+        run: |
+          julia -e 'using Pkg; Pkg.activate("."); Pkg.instantiate(); Pkg.precompile()'
       - name: Build documentation
         run: julia --project=. docs/make.jl
       - name: Deploy to GitHub Pages
