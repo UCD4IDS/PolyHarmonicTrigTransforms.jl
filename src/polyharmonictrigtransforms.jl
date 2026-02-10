@@ -13,14 +13,7 @@ See the `docs/` directory for usage examples and API reference.
 """
 module PolyHarmonicTrigTransforms
 
-# Include implementation files (relative to this file's directory)
-for fname in (
-    "dst.jl", "idst.jl", "llst.jl", "illst.jl", "llst2.jl",
-    "llstapprox2.jl", "solvelaplace.jl", "solvelaplace_old.jl",
-    "phlct.jl", "phlct2d.jl", "qtllst2dl1.jl", "helper.jl",
-)
-    include(joinpath(@__DIR__, fname))
-end
+include(joinpath(@__DIR__, "polyharmonictrigtransforms.jl"))
 
 using .DST
 using .IDST
