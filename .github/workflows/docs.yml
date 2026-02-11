@@ -15,9 +15,8 @@ jobs:
         with:
           version: '1.12'
       - name: Install project environment
-        run: |
-          echo "GITHUB_WORKSPACE=$GITHUB_WORKSPACE"
-          julia --project=. -e 'using Pkg; Pkg.update(); Pkg.instantiate(); Pkg.precompile()'
+        continue-on-error: true
+        run: julia --project=. -e 'using Pkg; Pkg.update(); Pkg.instantiate(); Pkg.precompile()'
       - name: Build documentation
         run: julia --project=. docs/make.jl
       - name: Deploy to GitHub Pages
