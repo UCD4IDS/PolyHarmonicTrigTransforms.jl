@@ -1,36 +1,27 @@
-name: Documentation
+name: Docs
 
 on:
   push:
-    branches:
-      - 'master'
-      - 'release-'
-    paths-ignore:
-      - 'LICENSE.md'
-      - 'README.md'
-    tags: '*'
+    branches: [ main ]
   pull_request:
+    branches: [ main ]
 
 jobs:
   build:
-    runs-on: ${{ matrix.os }}
-#    if: "!contains(github.event.head_commit.message, 'skip ci')"
-    strategy:
-      matrix:
-        julia-version: [1.5]
-        julia-arch: [x86]
-        os: [ubuntu-latest]
+    runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
       - uses: julia-actions/setup-julia@latest
         with:
-          version: ${{ matrix.julia-version }}
-      - name: Install dependencies
-        continue-on-error: true
-        run: julia --project=docs/ -e 'using Pkg;
-              Pkg.develop(PackageSpec(path=pwd())); Pkg.instantiate()'
-      - name: Build and deploy
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          DOCUMENTER_KEY: ${{ secrets.DOCUMENTER_KEY }}
-        run: julia --project=docs --color=yes docs/make.jl
+          version: '1.12'
+      - name: Register repo package and install environment
+        run: |
+          echo "GITHUB_WORKSPACE=$GITHUB_WORKSPACE"
+          julia -e "using Pkg; Pkg.develop(path=ENV[\"GITHUB_WORKSPACE\"]); Pkg.instantiate(); Pkg.precompile()"
+      - name: Build documentation
+        run: julia --project=. docs/make.jl
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./docs/build
