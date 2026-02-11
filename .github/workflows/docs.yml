@@ -1,26 +1,36 @@
-name: Docs
+name: Documentation
 
 on:
   push:
-    branches: [ main ]
+    branches:
+      - 'master'
+      - 'release-'
+    paths-ignore:
+      - 'LICENSE.md'
+      - 'README.md'
+    tags: '*'
   pull_request:
-    branches: [ main ]
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }}
+#    if: "!contains(github.event.head_commit.message, 'skip ci')"
+    strategy:
+      matrix:
+        julia-version: [1.5]
+        julia-arch: [x86]
+        os: [ubuntu-latest]
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v2
       - uses: julia-actions/setup-julia@latest
         with:
-          version: '1.12'
-      - name: Install project environment
+          version: ${{ matrix.julia-version }}
+      - name: Install dependencies
         continue-on-error: true
-        run: julia --project=. -e 'using Pkg; Pkg.update(); Pkg.instantiate(); Pkg.precompile()'
-      - name: Build documentation
-        run: julia --project=. docs/make.jl
-      - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./docs/build
+        run: julia --project=docs/ -e 'using Pkg;
+              Pkg.develop(PackageSpec(path=pwd())); Pkg.instantiate()'
+      - name: Build and deploy
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          DOCUMENTER_KEY: ${{ secrets.DOCUMENTER_KEY }}
+        run: julia --project=docs --color=yes docs/make.jl
