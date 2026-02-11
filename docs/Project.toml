@@ -4,6 +4,8 @@ authors = ["UCD4IDS"]
 
 [deps]
 Documenter = "e30172f5-a6a5-5a46-863b-614d45cd2de4"
- 
+PolyHarmonicTrigTransforms = "c853eca7-4467-4dac-871a-88cef1644acc"
+
 [compat]
 Documenter = "1.16.1"
+PolyHarmonicTrigTransforms = "1.0.0"

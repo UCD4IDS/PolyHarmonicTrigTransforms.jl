@@ -1,26 +1,27 @@
-name: Documenter
+name: Docs
+
 on:
   push:
-    branches:
-      - master
-    tags: '*'
-    paths: # Specifying which files to run CI/CD for
-      - src/**
-      - docs/**
+    branches: [ main ]
   pull_request:
+    branches: [ main ]
+
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
       - uses: julia-actions/setup-julia@latest
         with:
-          version: '1.10'
-      - name: Install dependencies
-        run: julia --project=docs/ -e 'using Pkg; Pkg.develop(PackageSpec(path=pwd())); Pkg.instantiate()'
-      - name: Build and deploy
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # For authentication with GitHub Actions token
-          DOCUMENTER_KEY: ${{ secrets.DOCUMENTER_KEY }} # For authentication with SSH deploy key
-          GKSwstype: "100" # https://discourse.julialang.org/t/generation-of-documentation-fails-qt-qpa-xcb-could-not-connect-to-display/60988
-        run: julia --project=docs/ docs/make.jl
+          version: '1.12'
+      - name: Install project environment
+        run: |
+          echo "GITHUB_WORKSPACE=$GITHUB_WORKSPACE"
+          julia --project=. -e 'using Pkg; Pkg.update(); Pkg.instantiate(); Pkg.precompile()'
+      - name: Build documentation
+        run: julia --project=. docs/make.jl
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./docs/build

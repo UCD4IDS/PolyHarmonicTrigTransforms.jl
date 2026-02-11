@@ -13,7 +13,18 @@ See the `docs/` directory for usage examples and API reference.
 """
 module PolyHarmonicTrigTransforms
 
-include(joinpath(@__DIR__, "polyharmonictrigtransforms.jl"))
+include("dst.jl")
+include("idst.jl")
+include("llst.jl")
+include("illst.jl")
+include("llst2.jl")
+include("llstapprox2.jl")
+include("phlct.jl")
+include("phlct2d.jl")
+include("qtllst2dl1.jl")
+include("solvelaplace.jl")
+include("solvelaplace_old.jl")
+include("helper.jl")
 
 using .DST
 using .IDST
