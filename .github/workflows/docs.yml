@@ -10,20 +10,19 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: julia-actions/setup-julia@latest
-        with:
-          version: '1.12'
-      - name: Show file tree
-        run: ls -R
-      - name: Register repo package and install environment
-        run: |
-          echo "GITHUB_WORKSPACE=$GITHUB_WORKSPACE"
-          julia -e 'using Pkg; Pkg.develop(path=joinpath(ENV["GITHUB_WORKSPACE"], "PolyHarmonicTrigTransforms")); Pkg.instantiate(); Pkg.precompile()'
-      - name: Build documentation
-        run: julia --project=. docs/make.jl
-      - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./docs/build
+    - uses: actions/checkout@v4
+
+    - uses: julia-actions/setup-julia@latest
+      with:
+        version: '1.12'
+
+    - name: Install docs environment
+      run: julia --project=docs -e 'using Pkg; Pkg.instantiate()'
+
+    - name: Build docs
+      run: julia --project=docs docs/make.jl
+    - name: Deploy to GitHub Pages
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./docs/build
