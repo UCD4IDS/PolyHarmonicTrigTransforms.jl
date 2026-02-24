@@ -14,4 +14,7 @@ makedocs(
     checkdocs = :none, # disable docstring checks to avoid failing on undocumented symbols
 )
 
+deploydocs(
+    repo = "github.com/UCD4IDS/PolyHarmonicTrigTransforms.git"
+)
 println("Documentation built: $(joinpath(@__DIR__, "build"))")

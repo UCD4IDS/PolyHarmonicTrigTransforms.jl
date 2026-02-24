@@ -28,7 +28,6 @@
 #   Shuchen Ye (2022)
 
 # See also: IDST
-
 module DST
     function _ensure_fftw()
         if !isdefined(@__MODULE__, :FFTW)
@@ -41,7 +40,7 @@ module DST
     export dst, dst!, dst_u, plan_dst, dst_old
 
     """
-    dst(x; dims=1)
+        dst(x; dims=1)
 
     Compute the Type-I Discrete Sine Transform (DST) of `x` along `dims`.
 
@@ -72,7 +71,7 @@ module DST
     end
 
     """
-    plan_dst(x; dims=1, flags=FFTW.MEASURE)
+        plan_dst(x; dims=1, flags=FFTW.MEASURE)
 
     Create an FFTW r2r plan for the DST (RODFT00) on `x`. The returned plan
     can be executed with `plan * x`.
@@ -83,7 +82,7 @@ module DST
     end
 
     """
-    dst!(x; dims=1)
+        dst!(x; dims=1)
 
     In-place DST that overwrites `x` with its transform when possible. Falls
     back to a safe out-of-place compute and copy if the in-place routine is
