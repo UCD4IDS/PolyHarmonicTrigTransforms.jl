@@ -1,6 +1,7 @@
 using Pkg
 Pkg.activate(@__DIR__)  # activate docs environment
 Pkg.instantiate()       # install Documenter and dependencies
+Pkg.develop(path="..")
 
 using Documenter
 using PolyHarmonicTrigTransforms
