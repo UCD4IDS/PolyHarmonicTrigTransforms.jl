@@ -19,7 +19,7 @@ jobs:
       - name: Register repo package and install environment
         run: |
           echo "GITHUB_WORKSPACE=$GITHUB_WORKSPACE"
-          julia -e 'using Pkg; Pkg.develop(path=ENV["GITHUB_WORKSPACE"]); Pkg.instantiate(); Pkg.precompile()'
+          julia -e 'using Pkg; Pkg.develop(path=joinpath(ENV["GITHUB_WORKSPACE"], "PolyHarmonicTrigTransforms")); Pkg.instantiate(); Pkg.precompile()'
       - name: Build documentation
         run: julia --project=. docs/make.jl
       - name: Deploy to GitHub Pages
