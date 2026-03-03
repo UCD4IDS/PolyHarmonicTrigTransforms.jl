@@ -15,5 +15,5 @@ makedocs(
 )
 
 deploydocs(
-    repo = "github.com/UCD4IDS/PolyHarmonicTrigTransforms.git"
+    repo = "github.com/UCD4IDS/PolyHarmonicTrigTransforms.jl.git"
 )
