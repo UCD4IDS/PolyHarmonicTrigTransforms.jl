@@ -25,7 +25,7 @@ Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
 
 [compat]
 AbstractFFTs = "1"
-Documenter = "1.16.1"
+Documenter = "1.17"
 FFTW = "1"
 FileIO = "1"
 ImageIO = "0.6"

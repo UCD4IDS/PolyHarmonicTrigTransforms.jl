@@ -9,4 +9,4 @@ PolyHarmonicTrigTransforms = "c853eca7-4467-4dac-871a-88cef1644acc"
 
 [compat]
 julia = "1.12"
-Documenter = "1.16.1"
+Documenter = "1.17"

@@ -1,7 +1,7 @@
 using Pkg
 Pkg.activate(@__DIR__)  # activate docs environment
 Pkg.instantiate()       # install Documenter and dependencies
-Pkg.develop(path="../PolyHarmonicTrigTransforms")  # ensure the package is available for documentation
+Pkg.develop(path="../src")  # ensure the package is available for documentation
 
 using Documenter
 using PolyHarmonicTrigTransforms
@@ -19,3 +19,6 @@ makedocs(
     checkdocs = :none, # disable docstring checks to avoid failing on undocumented symbols
 )
 
+deploydocs(
+    repo = "github.com/UCD4IDS/PolyHarmonicTrigTransforms.git"
+)
