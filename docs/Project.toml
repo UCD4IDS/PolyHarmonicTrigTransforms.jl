@@ -1,12 +1,7 @@
-name = "PolyHarmonicTrigTransformsDocs"
-uuid = "973f9796-5d73-474c-b525-c1e876056144"
-authors = ["UCD4IDS"]
-version = "0.1.0"
-
 [deps]
 Documenter = "e30172f5-a6a5-5a46-863b-614d45cd2de4"
 PolyHarmonicTrigTransforms = "c853eca7-4467-4dac-871a-88cef1644acc"
 
 [compat]
-julia = "1.12"
 Documenter = "1.17"
+PolyHarmonicTrigTransforms = "1.0"
