@@ -1,4 +1,4 @@
-
+[![Documentation](https://github.com/UCD4IDS/PolyHarmonicTrigTransforms.jl/actions/workflows/docs.yml/badge.svg)](https://github.com/UCD4IDS/PolyHarmonicTrigTransforms.jl/actions/workflows/docs.yml)
 [![CI](https://github.com/UCD4IDS/PolyHarmonicTrigTransforms.jl/actions/workflows/CI.yml/badge.svg?branch=main)](https://github.com/UCD4IDS/PolyHarmonicTrigTransforms.jl/actions/workflows/CI.yml) [![CompatHelper](https://github.com/UCD4IDS/PolyHarmonicTrigTransforms.jl/actions/workflows/CompatHelper.yml/badge.svg?branch=main)](https://github.com/UCD4IDS/PolyHarmonicTrigTransforms.jl/actions/workflows/CompatHelper.yml) [![TagBot](https://github.com/UCD4IDS/PolyHarmonicTrigTransforms.jl/actions/workflows/TagBot.yml/badge.svg?branch=main)](https://github.com/UCD4IDS/PolyHarmonicTrigTransforms.jl/actions/workflows/TagBot.yml)
 
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
@@ -214,11 +214,6 @@ julia> ]
 
 (@v1.8) pkg> add "MAT"
 ```
-
-Example plain HTML site using GitLab Pages.
-
-Learn more about GitLab Pages at https://pages.gitlab.io and the official
-documentation https://docs.gitlab.com/ce/user/project/pages/.
 
 ---
 

@@ -1,7 +1,3 @@
-using Pkg
-Pkg.activate(@__DIR__)  # activate docs environment
-Pkg.instantiate()       # install Documenter and dependencies
-
 using Documenter
 using PolyHarmonicTrigTransforms
 
