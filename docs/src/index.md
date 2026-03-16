@@ -173,6 +173,23 @@ Gaussian = GaussianFromImage(image_path)
 img = load(image_path)
 width, height = size(img)
 ```
+
+## Leveled List
+Wickerhauser explains from the book Adapted Wavelet Analysis, a more efficient way to describe a wavelet packet basis using an encounter order numbering scheme.
+
+![wavelet basis from the book](./wavelet_basis.png)
+
+Information about subsquares is sent in the order they are encountered during a depth-first (recursive) traversal of the wavelet packet tree.
+
+The traversal visits children in the order: upper-left → upper-right → lower-left → lower-right, matching the typical block scan order.
+
+To define the basis, you only need to list the levels of the subsquares in this encounter order. This list determines where recursion stops and uniquely specifies the squares.
+
+Example: the basis in Figure 9.13 can be described by the level list (2, 3, 3, 3, 3, 2, 2, 1, 1, 1).
+
+This method is much more efficient, using at most 4L numbers with log₂L bits each, about 10× less data than the previous method.
+
+This approach is called the “levels list basis description method” and is adopted as the standard method because of its efficiency.
 ## Helper
 
 The function `drawpartition2d2` is used to draw the boundaries. It takes 5 parameters: `signal::AbstractMatrix, liste::AbstractMatrix; width=nothing, image=nothing,  fit=false`.
