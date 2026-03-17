@@ -72,6 +72,7 @@ module IDST
 
     In-place inverse DST: overwrite `y` with the reconstructed data when
     possible. Falls back to computing out-of-place and copying the result.
+    Uses an FFTW r2r plan for the in-place computation when available. The result is scaled by `1/(N+1)` to account for the normalization of the DST. Note that the input `y` should contain the DST coefficients, and after this function, it will contain the reconstructed data in the original domain.
     """
     function idst!(y::AbstractArray; dims=1)
         _ensure_fftw()
