@@ -198,23 +198,23 @@ module PHLCT
 
     Returns the restored coefficient matrix.
     """
-    function phlct_restore(in::AbstractVecOrMat, qt::AbstractVecOrMat)
+    function phlct_restore(input::AbstractVecOrMat, qt::AbstractVecOrMat)
 
         # Set the quantization table for each blocks
-        m, n = size(in)
+        m, n = size(input)
         N = length(qt)
         q = repeat(qt, div(m, N), div(n, N))
 
         # DCT coefficients of PHfunction
-        dcu = dcndm(in, N)
+        dcu = dcndm(input, N)
 
         # Set dcu[i, j] <- 0 if abs(dcu[i, j]) > q[i, j]/2
         dcu = (1 - sign.(abs.(round.(dcu ./ q)))) .* dcu
 
         # Restoration of truncated coefficients
-        # out[i, j] <- dcu[i, j] if in[i, j] == 0
-        # out[i, j] <- in[i, j]  else
-        out = in + (1 - sign.(abs.(in))) .* dcu
+        # out[i, j] <- dcu[i, j] if input[i, j] == 0
+        # out[i, j] <- input[i, j]  else
+        out = input + (1 - sign.(abs.(input))) .* dcu
 
         return out
     end
