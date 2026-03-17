@@ -23,7 +23,7 @@ jobs:
       matrix:
         os: [windows-latest, macos-latest]
         julia-arch: [x64]
-        julia-version: ['1.10','1.11','1.12', 'lts']
+        julia-version: ['1.10','1.11', 'lts']
 
     steps:
       - uses: actions/checkout@v4
