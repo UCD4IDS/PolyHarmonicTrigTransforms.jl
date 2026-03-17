@@ -1,16 +1,11 @@
-[![Documentation](https://github.com/UCD4IDS/PolyHarmonicTrigTransforms.jl/actions/workflows/docs.yml/badge.svg)](https://github.com/UCD4IDS/PolyHarmonicTrigTransforms.jl/actions/workflows/docs.yml)
-[![CI](https://github.com/UCD4IDS/PolyHarmonicTrigTransforms.jl/actions/workflows/CI.yml/badge.svg?branch=main)](https://github.com/UCD4IDS/PolyHarmonicTrigTransforms.jl/actions/workflows/CI.yml) [![CompatHelper](https://github.com/UCD4IDS/PolyHarmonicTrigTransforms.jl/actions/workflows/CompatHelper.yml/badge.svg?branch=main)](https://github.com/UCD4IDS/PolyHarmonicTrigTransforms.jl/actions/workflows/CompatHelper.yml) [![TagBot](https://github.com/UCD4IDS/PolyHarmonicTrigTransforms.jl/actions/workflows/TagBot.yml/badge.svg?branch=main)](https://github.com/UCD4IDS/PolyHarmonicTrigTransforms.jl/actions/workflows/TagBot.yml)
 
-<!-- START doctoc generated TOC please keep comment here to allow auto update -->
-<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 **Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
 
-- [Julia](#julia)
-- [LLST](#llst)
-- [PHLCT](#phlct)
-- [Troubleshooting](#troubleshooting)
+- [Julia](./index.md#julia)
+- [LLST](./api.md#llst)
+- [PHLCT](./api.md#phlct)
+- [Troubleshooting](./index.md#troubleshooting)
 
-<!-- END doctoc generated TOC please keep comment here to allow auto update -->
 ## Project
 This project is from [Professor Saito's paper][paper], fully converted from Matlab to Julia. The implementation is almost identical with Matlab except 
 some minor feature differences or lack of features like matlab `meshgrid` is not in Julia so similar
@@ -18,7 +13,7 @@ feature is customly built. Similarly, matlab `repmat` is equivalent to Julia `re
 
 ## Julia
 
-This project is running in [Julia version 1.85][JuliaVersion] and fully tested in mac os and windows with version 1.8-1.86 and developed in VS Code with Julia [extension][JuliaExtension] version 1.47.2.
+This project is running in [Julia version 1.12][JuliaVersion] and fully tested in mac os and windows with version 1.8-1.86 and developed in VS Code with Julia [extension][JuliaExtension] version 1.47.2.
 
 
 ```
@@ -157,12 +152,12 @@ n = 5
 x = LinRange(-1, 1, n)
 y = LinRange(-1, 1, n)
 Gaussian = zeros((length(x), length(y)))
-		
+        
 function GaussianFromImage(image_path)
     img = load(image_path)
     width, height = size(img)
     Gaussian = zeros(Float64, (width, height))
-	
+    
     for i in 1:width
         for j in 1:height
           pixel_value = Gray(img[i, j])
@@ -172,12 +167,29 @@ function GaussianFromImage(image_path)
     end
     return Gaussian
 end
-	
+    
 image_path = "(insert your image path)"
 Gaussian = GaussianFromImage(image_path)
 img = load(image_path)
 width, height = size(img)
 ```
+
+## Leveled List
+Wickerhauser explains from the book Adapted Wavelet Analysis, a more efficient way to describe a wavelet packet basis using an encounter order numbering scheme.
+
+![wavelet basis from the book](./wavelet_basis.png)
+
+Information about subsquares is sent in the order they are encountered during a depth-first (recursive) traversal of the wavelet packet tree.
+
+The traversal visits children in the order: upper-left → upper-right → lower-left → lower-right, matching the typical block scan order.
+
+To define the basis, you only need to list the levels of the subsquares in this encounter order. This list determines where recursion stops and uniquely specifies the squares.
+
+Example: the basis in Figure 9.13 can be described by the level list (2, 3, 3, 3, 3, 2, 2, 1, 1, 1).
+
+This method is much more efficient, using at most 4L numbers with log₂L bits each, about 10× less data than the previous method.
+
+This approach is called the “levels list basis description method” and is adopted as the standard method because of its efficiency.
 ## Helper
 
 The function `drawpartition2d2` is used to draw the boundaries. It takes 5 parameters: `signal::AbstractMatrix, liste::AbstractMatrix; width=nothing, image=nothing,  fit=false`.
@@ -214,6 +226,11 @@ julia> ]
 
 (@v1.8) pkg> add "MAT"
 ```
+
+Example plain HTML site using GitLab Pages.
+
+Learn more about GitLab Pages at https://pages.gitlab.io and the official
+documentation https://docs.gitlab.com/ce/user/project/pages/.
 
 ---
 

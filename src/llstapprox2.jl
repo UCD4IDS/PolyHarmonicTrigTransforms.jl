@@ -32,6 +32,12 @@ module LLSTAPPROX2
     using .UTIL
 
     export llstapprox2
+    """
+    llstapprox2(data, levlist, krange; bdrykeep=false)
+
+    Evaluate LLST approximation quality for `data` using `levlist` over a range
+    of retained coefficient counts `krange`. Returns PSNR values for each k.
+    """
     @inline function llstapprox2(data::AbstractArray, levlist::AbstractArray, krange::AbstractArray, bdrykeep::Bool=false)
         # Sanity check.
         (M, N) = size(data)

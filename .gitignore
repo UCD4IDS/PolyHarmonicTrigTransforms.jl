@@ -3,3 +3,5 @@ test/.ipynb_checkpoints
 test/*.ipynb
 Manifest.toml
 Manifest-v1.11.toml
+*.txt
+docs/build/

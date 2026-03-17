@@ -3,8 +3,12 @@ uuid = "c853eca7-4467-4dac-871a-88cef1644acc"
 version = "1.0.0"
 authors = []
 
+[workspace]
+projects = ["test", "docs"]
+
 [deps]
 AbstractFFTs = "621f4979-c628-5d54-868e-fcf4e3e8185c"
+Documenter = "e30172f5-a6a5-5a46-863b-614d45cd2de4"
 FFTW = "7a1cc6ca-52ef-59f5-83cd-3a7055c09341"
 FileIO = "5789e2e9-d7fb-5bc7-8068-2c6fae9b9549"
 ImageIO = "82e4d734-157c-48bb-816b-45c225c6df19"
@@ -17,24 +21,24 @@ Statistics = "10745b16-79ce-11e8-11f9-7d13ad32a3b2"
 Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
 
 [weakdeps]
-AbstractFFTs = "621f4979-c628-5d54-868e-fcf4e3e8185c"
-FFTW = "7a1cc6ca-52ef-59f5-83cd-3a7055c09341"
 Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
-
-[extras]
-Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40" # UUID for the standard library Test
-AbstractFFTs = "621f4979-c628-5d54-868e-fcf4e3e8185c"
 
 [compat]
 AbstractFFTs = "1"
+Documenter = "1.17"
 FFTW = "1"
 FileIO = "1"
 ImageIO = "0.6"
 ImageMagick = "1"
 Images = "0.26"
-MAT = "0.10, 0.11"
+MAT = "0.10"
 Plots = "1"
 Statistics = "1"
+
+[extras]
+AbstractFFTs = "621f4979-c628-5d54-868e-fcf4e3e8185c"
+FFTW = "7a1cc6ca-52ef-59f5-83cd-3a7055c09341"
+Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
 
 [targets]
 test = ["Test", "FFTW", "AbstractFFTs"]

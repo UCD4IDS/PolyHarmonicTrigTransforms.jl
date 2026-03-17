@@ -10,7 +10,19 @@ module LLST2
     using .SOLVELAPLACE
     
     export llst2
+    export llst2!
         
+    """
+    llst2(data, ll; inverse=false)
+
+    Perform the LLST block-based transform using level-list `ll` on `data`.
+
+    - `data`: input 2D array.
+    - `ll`: level-list describing the quadtree partition.
+    - `inverse`: when true performs the inverse transform.
+
+    Returns the transformed array.
+    """
     function llst2(data::AbstractVecOrMat, ll::AbstractArray, inverse::Bool=false)
         if (inverse != false)
             inverse = true
@@ -32,6 +44,18 @@ module LLST2
             # Now we find the boundaries and process them.
             data = gridBlkBdryTrans(data, ll, process_border, inverse)
         end
+    end
+
+    """
+    llst2!(data, ll; inverse=false)
+
+    In-place variant of `llst2` that overwrites `data` with the transformed
+    result. Uses broadcasting assignment as a safe fallback.
+    """
+    function llst2!(data::AbstractVecOrMat, ll::AbstractArray, inverse::Bool=false)
+        res = llst2(data, ll, inverse)
+        data .= res
+        return data
     end
 
 

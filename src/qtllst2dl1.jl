@@ -10,6 +10,13 @@ module QTLLST2DL1
     
     export qtllst2dl1
 
+    """
+    qtllst2dl1(signal, lmax)
+
+    Find a quadtree level-list up to depth `lmax` that minimizes a DST-based cost.
+
+    Returns `(liste, cost)` where `liste` encodes the partition and `cost` is the objective value.
+    """
     function qtllst2dl1(signal::AbstractVecOrMat, lmax::Int)
         liste, cost = recurs_testdst2d(signal, 0, lmax)
         return liste, cost

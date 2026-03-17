@@ -18,7 +18,13 @@ module ILLST
     using .LLST
     
     export illst
-    
+
+    """
+    illst(coef, ll)
+
+    Reconstruct an image from LLST coefficients `coef` using level-list `ll`.
+    This is a thin wrapper around `llst(..., inverse=true)`.
+    """
     function illst(image::AbstractMatrix, ll::AbstractMatrix)
         image = llst(image, ll, true)
     end

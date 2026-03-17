@@ -26,6 +26,13 @@ module HELPER
 
   export drawpartition2d2, l2norm, is_level_list_valid, is_valid_subband
 
+  """
+  drawpartition2d2(signal, liste; width=nothing, image=nothing, fit=false)
+
+  Draw the quadtree partition described by `liste` over `signal` (image).
+  Optional keyword `width` controls line width; `image` may be a filename to overlay.
+  Returns a `Plots.Plot` object.
+  """
   function drawpartition2d2(signal::AbstractMatrix, liste::AbstractMatrix; width=nothing, image=nothing,  fit=false)
     (m, n) = size(signal)
 
@@ -77,10 +84,21 @@ module HELPER
     newpos = recurspartition(p, pm + m / 2, pn + n / 2, m / 2, n / 2, liste, newpos, level + 1, width)
   end
 
+  """
+  l2norm(original, mutated)
+
+  Relative L2 error: returns norm(mutated - original) / norm(original).
+  """
   function l2norm(original::AbstractVecOrMat, mutated::AbstractVecOrMat) 
     return norm(mutated .- original)/ norm(original)
   end
 
+  """
+  is_level_list_valid(signal, list)
+
+  Quick validator that checks `signal` dimensions are even and that `list` is a valid level-list.
+  Returns `true` when valid, otherwise `false`.
+  """
   function is_level_list_valid(signal::AbstractMatrix, list::AbstractMatrix)
     m,n = size(signal)
 
