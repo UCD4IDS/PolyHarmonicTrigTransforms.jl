@@ -1,6 +1,6 @@
 name = "PolyHarmonicTrigTransforms"
 uuid = "c853eca7-4467-4dac-871a-88cef1644acc"
-version = "0.1.4"
+version = "0.1.5"
 authors = ["Jason Hee Yoon <jason.hee.yoon@gmail.com>", "Naoki Saito <nsaito@ucdavis.edu>", "Other Contributors"]
 
 [workspace]
@@ -34,7 +34,7 @@ Images = "0.26"
 MAT = "0.10, 0.11"
 Plots = "1"
 Statistics = "1"
-julia = "1.10, <2"
+julia = "1.10 - 1"
 
 [extras]
 AbstractFFTs = "621f4979-c628-5d54-868e-fcf4e3e8185c"
