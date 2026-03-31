@@ -1,4 +1,4 @@
-[![Documentation](https://ucd4ids.github.io/PolyHarmonicTrigTransforms.jl/stable/)
+[![Documentation](https://github.com/UCD4IDS/PolyHarmonicTrigTransforms.jl/actions/workflows/docs.yml/badge.svg)]([(https://ucd4ids.github.io/PolyHarmonicTrigTransforms.jl/stable/)])
 [![CI](https://github.com/UCD4IDS/PolyHarmonicTrigTransforms.jl/actions/workflows/CI.yml/badge.svg?branch=main)](https://github.com/UCD4IDS/PolyHarmonicTrigTransforms.jl/actions/workflows/CI.yml) [![CompatHelper](https://github.com/UCD4IDS/PolyHarmonicTrigTransforms.jl/actions/workflows/CompatHelper.yml/badge.svg?branch=main)](https://github.com/UCD4IDS/PolyHarmonicTrigTransforms.jl/actions/workflows/CompatHelper.yml) [![TagBot](https://github.com/UCD4IDS/PolyHarmonicTrigTransforms.jl/actions/workflows/TagBot.yml/badge.svg?branch=main)](https://github.com/UCD4IDS/PolyHarmonicTrigTransforms.jl/actions/workflows/TagBot.yml)
 
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
