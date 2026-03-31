@@ -1,6 +1,6 @@
 name = "PolyHarmonicTrigTransforms"
 uuid = "c853eca7-4467-4dac-871a-88cef1644acc"
-version = "0.1.5"
+version = "0.2.0"
 authors = ["Jason Hee Yoon <jason.hee.yoon@gmail.com>", "Naoki Saito <nsaito@ucdavis.edu>", "Other Contributors"]
 
 [workspace]
