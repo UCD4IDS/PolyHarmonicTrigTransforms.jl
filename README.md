@@ -1,9 +1,9 @@
-[![Documentation](https://github.com/UCD4IDS/PolyHarmonicTrigTransforms.jl/actions/workflows/docs.yml/badge.svg)](https://github.com/UCD4IDS/PolyHarmonicTrigTransforms.jl/actions/workflows/docs.yml)
+[![Documentation](https://ucd4ids.github.io/PolyHarmonicTrigTransforms.jl/stable/)
 [![CI](https://github.com/UCD4IDS/PolyHarmonicTrigTransforms.jl/actions/workflows/CI.yml/badge.svg?branch=main)](https://github.com/UCD4IDS/PolyHarmonicTrigTransforms.jl/actions/workflows/CI.yml) [![CompatHelper](https://github.com/UCD4IDS/PolyHarmonicTrigTransforms.jl/actions/workflows/CompatHelper.yml/badge.svg?branch=main)](https://github.com/UCD4IDS/PolyHarmonicTrigTransforms.jl/actions/workflows/CompatHelper.yml) [![TagBot](https://github.com/UCD4IDS/PolyHarmonicTrigTransforms.jl/actions/workflows/TagBot.yml/badge.svg?branch=main)](https://github.com/UCD4IDS/PolyHarmonicTrigTransforms.jl/actions/workflows/TagBot.yml)
 
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
-**Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
+**Table of Contents**  [
 
 - [Julia](#julia)
 - [LLST](#llst)
@@ -18,7 +18,7 @@ feature is customly built. Similarly, matlab `repmat` is equivalent to Julia `re
 
 ## Julia
 
-This project is running in [Julia version 1.85][JuliaVersion] and fully tested in mac os and windows with version 1.8-1.86 and developed in VS Code with Julia [extension][JuliaExtension] version 1.47.2.
+This project is running in [Julia version 1.12][JuliaVersion] and fully tested in mac os and windows with version 1.8-1.86 and developed in VS Code with Julia [extension][JuliaExtension] version 1.47.2.
 
 
 ```
