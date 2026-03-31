@@ -3,6 +3,7 @@ using PolyHarmonicTrigTransforms
 
 makedocs(
     modules = [PolyHarmonicTrigTransforms],
+    repo=Documenter.Remotes.GitHub("UCD4IDS", "PolyHarmonicTrigTransforms.jl"),
     sitename = "PolyHarmonicTrigTransforms.jl",
     pages = [
         "Home" => "index.md",
@@ -15,5 +16,7 @@ makedocs(
 )
 
 deploydocs(
-    repo = "github.com/UCD4IDS/PolyHarmonicTrigTransforms.jl.git"
+    repo = "github.com/UCD4IDS/PolyHarmonicTrigTransforms.jl.git",
+           devbranch="master",
+           push_preview=true
 )

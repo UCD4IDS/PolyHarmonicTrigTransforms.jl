@@ -4,4 +4,3 @@ PolyHarmonicTrigTransforms = "c853eca7-4467-4dac-871a-88cef1644acc"
 
 [compat]
 Documenter = "1.17"
-PolyHarmonicTrigTransforms = "1.0"
