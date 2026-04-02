@@ -17,6 +17,6 @@ makedocs(
 
 deploydocs(
     repo = "github.com/UCD4IDS/PolyHarmonicTrigTransforms.jl.git",
-           devbranch="master",
+           devbranch="main",
            push_preview=true
 )
