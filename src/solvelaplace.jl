@@ -34,25 +34,41 @@ module SOLVELAPLACE
 
 
     """
-    solvelaplace(image)
+    solvelaplace(image; stretched=false)
 
-    Solve the Laplace (Poisson) equation on the interior of `image` using DST/IDST.
+    Solve Laplace's equation on the interior of `image` with the boundary values of
+    `image` as Dirichlet data (Averbuch--Israeli--Vozovoi): subtract the bilinear
+    function matching the four corners, then add one sinh series per edge, with the
+    coefficients computed by the DST-I.
+
+    Rows of `image` are the `y` direction and columns the `x` direction, sampled on a
+    uniform grid that includes the boundary.
 
     Arguments
-    - `image`: m×n array with boundary values; the routine solves for the interior (returns array sized m×n with boundary preserved).
+    - `image`: m×n array with boundary values; the routine solves for the interior
+      (returns an array sized m×n with the boundary preserved).
+    - `stretched`: if `false` (default), the pixels are square, i.e., the domain is the
+      rectangle (0, n-1) × (0, m-1) in units of the grid spacing, and the result is
+      harmonic in these physical coordinates. If `true`, both sides are rescaled to
+      length 1, so the result is harmonic in the stretched coordinates; this was the
+      behavior of versions up to 0.1.6. The two agree when m == n.
 
     Returns
     - array with the computed solution where interior values have been solved and boundaries are unchanged.
     """
-    function solvelaplace(image::AbstractVecOrMat)
+    function solvelaplace(image::AbstractVecOrMat; stretched::Bool=false)
         if (isempty(image) == true)
             error("IM has to be a 2D array")
         end
         (m, n) = size(image)
 
-        if (m == 2 & n == 2)
-            return 0
+        # No interior points: nothing to solve.
+        if m <= 2 || n <= 2
+            return float.(image)
         end
+
+        # Aspect ratio a/b of the rectangle (width/height); r = 1 gives the unit square.
+        r = stretched ? 1.0 : (n - 1) / (m - 1)
 
         d_x = 1 / (n - 1)
         d_y = 1 / (m - 1)
@@ -110,8 +126,10 @@ module SOLVELAPLACE
 
         #@info "lambda" lambdan lambdam
 
-        u = repeat(lambdam, 1, n - 2)
-        v = repeat(lambdan, m - 2, 1)
+        # In the unit-square coordinates x, y used here, the decay rates of the
+        # edge series are pi*k*(a/b) across x and pi*k*(b/a) across y.
+        u = repeat(lambdam, 1, n - 2) .* r
+        v = repeat(lambdan, m - 2, 1) ./ r
 
         #@info "h" x u v
 

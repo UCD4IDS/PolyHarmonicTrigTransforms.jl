@@ -7,7 +7,8 @@ This file simply includes the actual implementation file `polyharmonictrigtransf
 PolyHarmonicTrigTransforms
 
 Provides polyharmonic and trigonometric transform routines:
-DST/IDST, LLST families, polyharmonic LCT, and Laplace solvers.
+DST/IDST, LLST families, polyharmonic LCT, and Laplace solvers
+(Dirichlet: `solvelaplace`; Neumann with constant right-hand side: `solveneumann`).
 
 See the `docs/` directory for usage examples and API reference.
 """
@@ -24,6 +25,7 @@ include("phlct2d.jl")
 include("qtllst2dl1.jl")
 include("solvelaplace.jl")
 include("solvelaplace_old.jl")
+include("solveneumann.jl")
 include("helper.jl")
 
 using .DST
@@ -34,6 +36,7 @@ using .LLST2
 using .LLSTAPPROX2
 using .SOLVELAPLACE
 using .SOLVELAPLACE_OLD
+using .SOLVENEUMANN
 using .PHLCT
 using .PHLCT2D
 using .QTLLST2DL1
@@ -48,7 +51,7 @@ solvelaplace_old(args...; kwargs...) = (Base.depwarn("`solvelaplace_old` is depr
 # Explicit public API (keep exports focused and stable)
 export dst, dst_old, dst!, plan_dst, idst, idst_old, idst!, plan_idst,
        llst2d, illst2d, llst2d!, illst2d!, illst, llst2, llst2!, llstapprox2,
-       solvelaplace, solvelaplace_old,
+       solvelaplace, solvelaplace_old, solveneumann,
        phlct_backward, phlct_forward, phlct_backward!, phlct_forward!, phlct_restore,
        phlct2d, qtllst2dl1,
        drawpartition2d2, l2norm, is_level_list_valid, is_valid_subband

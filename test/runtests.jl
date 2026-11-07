@@ -80,4 +80,6 @@ if isdefined(PolyHarmonicTrigTransforms, :solvelaplace)
 	@test size(res) == size(im)
 end
 
+include("solvers.jl")
+
 println("All tests passed.")

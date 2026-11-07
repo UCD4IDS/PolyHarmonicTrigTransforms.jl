@@ -177,6 +177,27 @@ Gaussian = GaussianFromImage(image_path)
 img = load(image_path)
 width, height = size(img)
 ```
+## Rectangle solvers
+
+`solvelaplace(image)` solves Laplace's equation inside `image` with its boundary values
+as Dirichlet data (Averbuch--Israeli--Vozovoi: bilinear corner function plus one
+sinh series per edge, computed with the DST-I). Pixels are square, so a non-square
+`image` is the rectangle `(0, n-1) × (0, m-1)`; pass `stretched=true` for the
+behavior of versions up to 0.1.6, which rescaled both sides to length 1.
+
+`solveneumann(hW, hE, hS, hN; a, b)` solves `Δu = K` on `(0,a) × (0,b)` with outward
+normal derivative `h` on the four edges (sampled at the cell midpoints), where `K` is
+the unique constant that makes the problem solvable. With `h = ∂f/∂ν`, the residual
+`v = f - u` satisfies the homogeneous Neumann condition (Yamatani--Saito).
+
+```julia
+a, b, m, n = 2.0, 1.0, 64, 128
+x = ((0:n-1) .+ 0.5) .* (a/n); y = ((0:m-1) .+ 0.5) .* (b/m)
+fx(x, y) = 2x; fy(x, y) = 0.0                  # f = x^2
+u, K = solveneumann(-fx.(0, y), fx.(a, y), -fy.(x, 0), fy.(x, b); a=a, b=b)
+# K == 2 (the Laplacian of x^2), and u equals x^2 up to a constant.
+```
+
 ## Helper
 
 The function `drawpartition2d2` is used to draw the boundaries. It takes 5 parameters: `signal::AbstractMatrix, liste::AbstractMatrix; width=nothing, image=nothing,  fit=false`.

@@ -68,3 +68,7 @@ PolyHarmonicTrigTransforms.qtllst2dl1
 ```@docs
 PolyHarmonicTrigTransforms.solvelaplace
 ```
+## SOLVENEUMANN
+```@docs
+PolyHarmonicTrigTransforms.solveneumann
+```
