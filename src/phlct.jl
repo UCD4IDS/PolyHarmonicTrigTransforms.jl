@@ -4,16 +4,7 @@ module PHLCT
     export phlct_backward, phlct_forward, phlct_restore
     export phlct_backward!, phlct_forward!
 
-    # Lazily ensure FFTW and fft/ifft bindings are available in this module
-    function _ensure_fft()
-        if !isdefined(@__MODULE__, :fft) || !isdefined(@__MODULE__, :FFTW)
-            Core.eval(Main, :(using FFTW))
-            Core.eval(@__MODULE__, :(const FFTW = Main.FFTW))
-            Core.eval(@__MODULE__, :(const fft = Main.FFTW.fft))
-            Core.eval(@__MODULE__, :(const ifft = Main.FFTW.ifft))
-        end
-        return nothing
-    end
+    using FFTW
     
     """
     phlct_backward(input, N)
@@ -28,7 +19,6 @@ module PHLCT
     - reconstructed m×n image (real array).
     """
     function phlct_backward(input::AbstractVecOrMat, N::Int)
-        _ensure_fft()
         # 
         # input
         # input : the m x n DCT coefficients of the residual image
@@ -100,7 +90,6 @@ module PHLCT
     - m×n array of DCT coefficients for the PHLCT representation.
     """
     function phlct_forward(input::AbstractVecOrMat, N::Int)
-        _ensure_fft()
         # 
         # input
         # input : an m x n image data
@@ -241,7 +230,6 @@ module PHLCT
     #    out:  DCT coefficints (except 0th) of PHLCT function.
     #
     function ndm( input, N )
-        _ensure_fft()
 
         km, kn = size(input)
 
@@ -296,7 +284,6 @@ module PHLCT
     #    out:  DCT coefficints of block based PHLCT function.
     #
     function dcndm(in, N)
-        _ensure_fft()
 
         # Initial parameter and array setup.
         m, n = size(in)

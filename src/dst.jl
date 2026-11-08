@@ -29,13 +29,7 @@
 
 # See also: IDST
 module DST
-    function _ensure_fftw()
-        if !isdefined(@__MODULE__, :FFTW)
-            Core.eval(Main, :(using FFTW))
-            Core.eval(@__MODULE__, :(const FFTW = Main.FFTW))
-        end
-        return nothing
-    end
+    using FFTW
     
     export dst, dst!, dst_u, plan_dst, dst_old
 
@@ -57,13 +51,11 @@ module DST
     ```
     """
     function dst(x::AbstractArray, dims=1)
-        _ensure_fftw()
         N = size(x, dims)
         return FFTW.r2r(x, FFTW.RODFT00, dims) / 2
     end
 
     function dst_u(x::AbstractArray, dims=1)
-        _ensure_fftw()
         N = size(x, dims)
         new_x = FFTW.r2r(x, FFTW.RODFT00, dims)
 
@@ -77,7 +69,6 @@ module DST
     can be executed with `plan * x`.
     """
     function plan_dst(x::AbstractArray; dims=1, flags=FFTW.MEASURE)
-        _ensure_fftw()
         return FFTW.r2r_plan(x, FFTW.RODFT00, dims; flags=flags)
     end
 
@@ -89,7 +80,6 @@ module DST
     not available on the current platform.
     """
     function dst!(x::AbstractArray; dims=1)
-        _ensure_fftw()
         try
             # Try to use FFTW in-place r2r if available
             FFTW.r2r!(x, FFTW.RODFT00, dims)
@@ -105,7 +95,6 @@ module DST
     end
 
     function dst_old(a::AbstractArray, n=nothing)
-        _ensure_fftw()
         if minimum(size(a)) == 1
             if size(a, 2) > 1
                 do_trans = 1

@@ -26,14 +26,7 @@ module IDST
     include("dst.jl")
     using .DST
 
-    # Lazily load FFTW when needed by IDST helpers.
-    function _ensure_fftw()
-        if !isdefined(@__MODULE__, :FFTW)
-            Core.eval(Main, :(using FFTW))
-            Core.eval(@__MODULE__, :(const FFTW = Main.FFTW))
-        end
-        return nothing
-    end
+    using FFTW
 
     export idst, idst!, plan_idst, idst_old
     """
@@ -63,7 +56,6 @@ module IDST
     Create an FFTW r2r plan suitable for the IDST (uses the DST plan internally).
     """
     function plan_idst(y::AbstractArray; dims=1, flags=FFTW.MEASURE)
-        _ensure_fftw()
         return FFTW.r2r_plan(y, FFTW.RODFT00, dims; flags=flags)
     end
 
@@ -75,7 +67,6 @@ module IDST
     Uses an FFTW r2r plan for the in-place computation when available. The result is scaled by `1/(N+1)` to account for the normalization of the DST. Note that the input `y` should contain the DST coefficients, and after this function, it will contain the reconstructed data in the original domain.
     """
     function idst!(y::AbstractArray; dims=1)
-        _ensure_fftw()
         try
             # In-place inverse DST: perform r2r in-place then scale by 1/(N+1)
             FFTW.r2r!(y, FFTW.RODFT00, dims)
