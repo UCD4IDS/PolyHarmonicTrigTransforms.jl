@@ -21,7 +21,7 @@ module HELPER
   
   using Plots
   using FileIO
-  using Images
+  using ImageIO, ImageTransformations
   using LinearAlgebra
 
   export drawpartition2d2, l2norm, is_level_list_valid, is_valid_subband
